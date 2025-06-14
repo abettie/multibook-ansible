@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - vars/laravel_env.yml
+
+  roles:
+    - common
+    - mariadb
+    - php
+    - nginx
+    - laravel
+    - react

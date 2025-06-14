@@ -1,0 +1,43 @@
+---
+- name: Install PHP and extensions
+  yum:
+    name:
+      - php
+      - php-fpm
+      - php-mbstring
+      - php-xml
+      - php-pdo
+      - php-mysqlnd
+      - php-json
+      - php-zip
+      - php-gd
+      - php-curl
+      - php-bcmath
+      - php-tokenizer
+      - php-ctype
+      - php-fileinfo
+      - php-openssl
+      - php-dom
+      - php-exif
+      - php-intl
+      - php-redis
+      - composer
+    state: present
+
+- name: Set PHP timezone
+  lineinfile:
+    path: /etc/php.ini
+    regexp: '^;?date.timezone'
+    line: 'date.timezone = Asia/Tokyo'
+
+- name: Set PHP language
+  lineinfile:
+    path: /etc/php.ini
+    regexp: '^;?mbstring.language'
+    line: 'mbstring.language = Japanese'
+
+- name: Ensure php-fpm is running
+  service:
+    name: php-fpm
+    state: started
+    enabled: yes

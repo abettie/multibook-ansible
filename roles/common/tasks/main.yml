@@ -1,0 +1,12 @@
+---
+- name: Install basic packages
+  yum:
+    name:
+      - git
+      - unzip
+      - curl
+      - gcc
+      - make
+      - nodejs
+      - npm
+    state: present
