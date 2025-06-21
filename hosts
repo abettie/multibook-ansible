@@ -1,0 +1,2 @@
+[web]
+i-07e7d58adcdc7fa9f ansible_user=ec2-user ansible_ssh_private_key_file=/home/toshi/.ssh/ec2_privatekey_2025.key ansible_ssh_common_args='-o ProxyCommand="aws ec2-instance-connect open-tunnel --instance-id i-07e7d58adcdc7fa9f"'
