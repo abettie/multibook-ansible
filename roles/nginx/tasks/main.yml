@@ -1,7 +1,8 @@
 ---
 - name: Install nginx
-  yum:
-    name: nginx
+  ansible.builtin.dnf:
+    name:
+      - nginx
     state: present
 
 - name: Copy nginx config

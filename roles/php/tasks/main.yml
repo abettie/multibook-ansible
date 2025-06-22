@@ -1,10 +1,12 @@
 ---
 - name: Install PHP and extensions
-  yum:
+  ansible.builtin.dnf:
     name:
       - php
       - php-fpm
       - php-mbstring
+      - php-devel
+      - php-pear
       - php-xml
       - php-pdo
       - php-mysqlnd
@@ -20,9 +22,12 @@
       - php-dom
       - php-exif
       - php-intl
-      - php-redis
-      - composer
     state: present
+
+- name: Install Composer
+  ansible.builtin.command: php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+  args:
+    creates: /usr/local/bin/composer
 
 - name: Set PHP timezone
   lineinfile:

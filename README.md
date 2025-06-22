@@ -13,7 +13,7 @@
 (Ubuntuの場合)
 ```sh
 sudo apt update
-sudo apt install -y ansible
+sudo apt install -y ansible python3-pymysql
 ansible --version
 ```
 

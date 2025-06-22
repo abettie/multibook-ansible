@@ -14,21 +14,21 @@
     force: yes
 
 - name: Install composer dependencies
-  command: composer install --no-interaction --prefer-dist
+  ansible.builtin.command: composer install --no-interaction --prefer-dist
   args:
     chdir: /var/www/api
 
 - name: Install npm dependencies
-  command: npm install
+  ansible.builtin.command: npm install
   args:
     chdir: /var/www/api
 
 - name: Build assets
-  command: npm run build
+  ansible.builtin.command: npm run build
   args:
     chdir: /var/www/api
 
 - name: Run database migrations
-  command: php artisan migrate --force
+  ansible.builtin.command: php artisan migrate --force
   args:
     chdir: /var/www/api

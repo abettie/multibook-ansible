@@ -1,9 +1,13 @@
 ---
 - name: Install MariaDB
-  yum:
+  ansible.builtin.dnf:
     name:
-      - mariadb-server
-      - MySQL-python
+      - mariadb105-server
+    state: present
+
+- name: Install PyMySQL
+  ansible.builtin.pip:
+    name: PyMySQL
     state: present
 
 - name: Ensure MariaDB is running
@@ -14,14 +18,16 @@
 
 - name: Set MariaDB character set to utf8mb4
   lineinfile:
-    path: /etc/my.cnf.d/server.cnf
-    regexp: '^character-set-server'
-    line: 'character-set-server=utf8mb4'
-    insertafter: '[mysqld]'
+    path: /etc/my.cnf.d/mariadb-server.cnf
+    regexp: "^character-set-server"
+    line: "character-set-server=utf8mb4"
+    insertafter: "[mysqld]"
   notify: Restart mariadb
 
 - name: Create database
   mysql_db:
+    login_unix_socket: /var/lib/mysql/mysql.sock
+    login_user: root
     name: "{{ laravel_db_name }}"
     encoding: utf8mb4
     collation: utf8mb4_unicode_ci
@@ -29,8 +35,11 @@
 
 - name: Create database user
   mysql_user:
+    login_unix_socket: /var/lib/mysql/mysql.sock
+    login_user: root
     name: "{{ laravel_db_user }}"
     password: "{{ laravel_db_password }}"
     priv: "{{ laravel_db_name }}.*:ALL"
     host: "%"
+    column_case_sensitive: true
     state: present
