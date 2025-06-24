@@ -26,8 +26,6 @@
 
 - name: Install Composer
   ansible.builtin.command: php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-  args:
-    creates: /usr/local/bin/composer
 
 - name: Set PHP timezone
   lineinfile:

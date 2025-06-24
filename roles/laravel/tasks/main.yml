@@ -1,9 +1,10 @@
 ---
 - name: Clone Laravel repository
-  git:
-    repo: 'git@github.com:abettie/multibook-backend.git'
+  ansible.builtin.git:
+    repo: 'git@bitbucket.org:abettie/multibook-backend.git'
     dest: /var/www/api
     version: master
+    key_file: /home/ec2-user/.ssh/id_rsa
     accept_hostkey: yes
 
 - name: Copy .env file
