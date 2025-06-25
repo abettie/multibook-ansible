@@ -34,3 +34,15 @@
   ansible.builtin.command: php artisan migrate --force
   args:
     chdir: /var/www/api
+
+- name: Set permissions for storage
+  ansible.builtin.file:
+    path: /var/www/api/storage
+    mode: '0777'
+    recurse: yes
+
+- name: Set permissions for bootstrap/cache
+  ansible.builtin.file:
+    path: /var/www/api/bootstrap/cache
+    mode: '0777'
+    recurse: yes
