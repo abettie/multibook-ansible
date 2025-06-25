@@ -1,7 +1,7 @@
 ---
 - name: Clone React repository
   git:
-    repo: 'git@bitbucket.org:abettie/multibook-frontend.git'
+    repo: 'git@github.com:abettie/multibook-frontend.git'
     dest: /var/www/frontend
     version: master
     key_file: /home/ec2-user/.ssh/id_rsa

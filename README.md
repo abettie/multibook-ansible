@@ -4,7 +4,7 @@
 - EC2インスタンスは作成済み
 - EC2にSSHで接続できる
 - Ansible実行端末にAnsibleがインストール済み（[Ansibleのインストールと初期設定](docs/ansible_setup.md)を参照）
-- EC2でgit cloneできるようSSH鍵をbitbucketに設定済み
+- EC2でgit cloneできるようSSH鍵をgithubに設定済み
 
 ## 事前準備
 
