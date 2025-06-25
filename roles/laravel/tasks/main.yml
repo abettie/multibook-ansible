@@ -12,7 +12,7 @@
   template:
     src: env.j2
     dest: /var/www/api/.env
-    mode: 0600
+    mode: 0644
     force: yes
 
 - name: Install composer dependencies
@@ -46,3 +46,14 @@
     path: /var/www/api/bootstrap/cache
     mode: '0777'
     recurse: yes
+
+- name: Check if APP_KEY is set
+  ansible.builtin.shell: grep -E '^APP_KEY=.{32,}' /var/www/api/.env || true
+  register: app_key_check
+  changed_when: false
+
+- name: Generate Laravel application key if not set
+  ansible.builtin.command: php artisan key:generate --force
+  args:
+    chdir: /var/www/api
+  when: app_key_check.stdout == ""
