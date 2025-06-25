@@ -13,7 +13,7 @@
   notify: Restart nginx
 
 - name: Ensure nginx is running
-  service:
+  ansible.builtin.service:
     name: nginx
     state: started
     enabled: yes

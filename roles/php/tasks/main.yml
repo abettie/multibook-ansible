@@ -44,7 +44,7 @@
     line: 'mbstring.language = Japanese'
 
 - name: Ensure php-fpm is running
-  service:
+  ansible.builtin.service:
     name: php-fpm
     state: started
     enabled: yes
