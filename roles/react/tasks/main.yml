@@ -6,6 +6,7 @@
     version: master
     key_file: /home/ec2-user/.ssh/id_rsa
     accept_hostkey: yes
+    force: yes
 
 - name: Install npm dependencies
   command: npm install

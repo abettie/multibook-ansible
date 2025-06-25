@@ -2,7 +2,7 @@
 - hosts: all
   become: true
   vars_files:
-    - vars/laravel_env.yml
+    - vars/private.yml
 
   roles:
     - common
