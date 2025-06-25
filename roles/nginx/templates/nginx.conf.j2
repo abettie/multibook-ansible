@@ -30,4 +30,29 @@ http {
             proxy_set_header X-Forwarded-Proto $scheme;
         }
     }
+
+    server {
+        listen 3000;
+        server_name localhost;
+
+        root /var/www/api/public;
+        index index.php index.html index.htm;
+
+        location / {
+            try_files $uri $uri/ /index.php?$query_string;
+        }
+
+        location ~ \.php$ {
+            include fastcgi_params;
+            fastcgi_pass unix:/run/php-fpm/www.sock;
+            fastcgi_index index.php;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_param PATH_INFO $fastcgi_path_info;
+            fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+        }
+        
+        location ~ /\.ht {
+            deny all;
+        }
+    }
 }
