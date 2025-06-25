@@ -1,0 +1,59 @@
+---
+- name: Clone Laravel repository
+  ansible.builtin.git:
+    repo: 'git@github.com:abettie/multibook-backend.git'
+    dest: /var/www/api
+    version: master
+    key_file: /home/ec2-user/.ssh/id_rsa
+    accept_hostkey: yes
+    force: yes
+
+- name: Copy .env file
+  template:
+    src: env.j2
+    dest: /var/www/api/.env
+    mode: 0644
+    force: yes
+
+- name: Install composer dependencies
+  ansible.builtin.command: composer install --no-interaction --prefer-dist
+  args:
+    chdir: /var/www/api
+
+- name: Install npm dependencies
+  ansible.builtin.command: npm install
+  args:
+    chdir: /var/www/api
+
+- name: Build assets
+  ansible.builtin.command: npm run build
+  args:
+    chdir: /var/www/api
+
+- name: Run database migrations
+  ansible.builtin.command: php artisan migrate --force
+  args:
+    chdir: /var/www/api
+
+- name: Set permissions for storage
+  ansible.builtin.file:
+    path: /var/www/api/storage
+    mode: '0777'
+    recurse: yes
+
+- name: Set permissions for bootstrap/cache
+  ansible.builtin.file:
+    path: /var/www/api/bootstrap/cache
+    mode: '0777'
+    recurse: yes
+
+- name: Check if APP_KEY is set
+  ansible.builtin.shell: grep -E '^APP_KEY=.{32,}' /var/www/api/.env || true
+  register: app_key_check
+  changed_when: false
+
+- name: Generate Laravel application key if not set
+  ansible.builtin.command: php artisan key:generate --force
+  args:
+    chdir: /var/www/api
+  when: app_key_check.stdout == ""

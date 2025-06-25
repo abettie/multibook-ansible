@@ -1,0 +1,19 @@
+---
+- name: Clone React repository
+  git:
+    repo: 'git@github.com:abettie/multibook-frontend.git'
+    dest: /var/www/frontend
+    version: master
+    key_file: /home/ec2-user/.ssh/id_rsa
+    accept_hostkey: yes
+    force: yes
+
+- name: Install npm dependencies
+  command: npm install
+  args:
+    chdir: /var/www/frontend
+
+- name: Build React app
+  command: npm run build
+  args:
+    chdir: /var/www/frontend

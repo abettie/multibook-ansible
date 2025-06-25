@@ -1,0 +1,50 @@
+---
+- name: Install PHP and extensions
+  ansible.builtin.dnf:
+    name:
+      - php
+      - php-fpm
+      - php-mbstring
+      - php-devel
+      - php-pear
+      - php-xml
+      - php-pdo
+      - php-mysqlnd
+      - php-json
+      - php-zip
+      - php-gd
+      - php-curl
+      - php-bcmath
+      - php-tokenizer
+      - php-ctype
+      - php-fileinfo
+      - php-openssl
+      - php-dom
+      - php-exif
+      - php-intl
+    state: present
+
+- name: Install Composer
+  ansible.builtin.get_url:
+    url: https://getcomposer.org/composer-stable.phar
+    dest: /usr/local/bin/composer
+    mode: '0755'
+    force: no
+
+- name: Set PHP timezone
+  lineinfile:
+    path: /etc/php.ini
+    regexp: '^;?date.timezone'
+    line: 'date.timezone = Asia/Tokyo'
+
+- name: Set PHP language
+  lineinfile:
+    path: /etc/php.ini
+    regexp: '^;?mbstring.language'
+    line: 'mbstring.language = Japanese'
+
+- name: Ensure php-fpm is running
+  ansible.builtin.service:
+    name: php-fpm
+    state: started
+    enabled: yes
