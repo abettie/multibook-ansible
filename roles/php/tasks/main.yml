@@ -43,6 +43,18 @@
     regexp: '^;?mbstring.language'
     line: 'mbstring.language = Japanese'
 
+- name: Set upload_max_filesize to 8M
+  lineinfile:
+    path: /etc/php.ini
+    regexp: '^;?upload_max_filesize'
+    line: 'upload_max_filesize = 8M'
+
+- name: Set post_max_size to 8M
+  lineinfile:
+    path: /etc/php.ini
+    regexp: '^;?post_max_size'
+    line: 'post_max_size = 8M'
+
 - name: Ensure php-fpm is running
   ansible.builtin.service:
     name: php-fpm
