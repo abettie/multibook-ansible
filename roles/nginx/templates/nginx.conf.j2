@@ -16,6 +16,8 @@ http {
     server {
         listen 80;
         server_name {{ app_domain }};
+        client_max_body_size 20M;
+
         # React frontend
         location / {
             root /var/www/frontend/dist;
@@ -34,6 +36,7 @@ http {
     server {
         listen 3000;
         server_name localhost;
+        client_max_body_size 20M;
 
         root /var/www/api/public;
         index index.php index.html index.htm;
