@@ -30,3 +30,16 @@
       - nodejs
       - npm
     state: present
+
+- name: Add git aliases to /home/ec2-user/.bashrc
+  blockinfile:
+    path: /root/.bashrc
+    marker: "# {mark} ANSIBLE MANAGED BLOCK: git aliases"
+    block: |
+      alias glog='git log --date=iso --pretty="format:%C(yellow)%h %C(green)%cd %C(blue)%an%C(red)%d %C(reset)%s" -20 --graph'
+      alias gst='git status -s'
+      alias gb='git branch'
+      alias gc='git checkout'
+      alias gr='git stash && git checkout master && git pull origin master && git branch --merged | grep -v "master" | xargs git branch -d && git fetch -p'
+  become: true
+  become_user: root
