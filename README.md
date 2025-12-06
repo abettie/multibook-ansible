@@ -4,6 +4,10 @@
 - EC2インスタンスは作成済み
 - EC2にSSHで接続できる
 - EC2でgit cloneできるようSSH鍵をgithubに設定済み
+- EC2インスタンスに一時的にIPv4アドレス付与済み
+  - composer installコマンドでGitHubからcloneするためIPv4が必要です
+  - EC2構築時にはIPv4を付与しないようになっているため、Ansible実行前に一時的に付与してください
+  - 作業完了後、IPv4アドレスは解除できます
 
 ## 事前準備
 
