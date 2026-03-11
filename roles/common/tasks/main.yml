@@ -27,7 +27,7 @@
       - unzip
       - gcc
       - make
-      - nodejs
+      - nodejs20
       - npm
     state: present
 

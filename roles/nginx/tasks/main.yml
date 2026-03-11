@@ -17,3 +17,8 @@
     name: nginx
     state: started
     enabled: yes
+
+- name: Reload nginx to apply config
+  ansible.builtin.service:
+    name: nginx
+    state: reloaded
