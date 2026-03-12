@@ -45,10 +45,10 @@ laravel_db_user: "your_db_user"
 laravel_db_password: "your_db_password"
 google_client_id: "xxx.apps.googleusercontent.com"
 google_client_secret: "xxxxxxx"
-google_redirect_uri: "http://app.example.com/api/auth/google/callback"
+google_redirect_uri: "https://app.example.com/api/auth/google/callback"
 app_domain: "app.example.com"
 img_bucket: "your_s3_bucket"
-img_domain: "img.example.com"
+img_endpoint: "https://img.example.com"
 ```
 
 ## アーキテクチャ

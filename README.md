@@ -113,7 +113,7 @@ google_client_secret: "xxxxxxx"
 google_redirect_uri: "http://app.example.com/api/auth/google/callback"
 app_domain: "app.example.com"
 img_bucket: "your_s3_bucket"
-img_domain: "img.example.com"
+img_endpoint: "https://img.example.com"
 ```
 
 ## Ansible実行
